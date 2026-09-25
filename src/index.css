@@ -1,0 +1,176 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/manrope';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/600.css';
+
+@theme {
+  --font-sans: 'Manrope Variable', 'PingFang SC', 'Microsoft YaHei UI', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
+
+  --color-ink: #0a0d18;
+  --color-panel: #111729;
+  --color-raised: #182038;
+  --color-cap: #1c2541;
+  --color-line: #252f4c;
+  --color-fg: #e6e9f2;
+  --color-dim: #8891ab;
+  --color-klein: #002fa7;
+  --color-klein-hi: #4a74ff;
+  --color-amber: #ffb547;
+  --color-danger: #ff5c6c;
+  --color-ok: #3ddc97;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-klein-hi);
+  outline-offset: 2px;
+}
+
+input[type='range'] {
+  accent-color: var(--color-klein-hi);
+}
+
+/* LED preview on the virtual keyboard (components/ledPreview.ts) */
+/* sine-shaped, fully dark at the trough; play it with linear timing */
+@keyframes led-breath {
+  0% {
+    opacity: calc(var(--o) * 0.000);
+  }
+  5% {
+    opacity: calc(var(--o) * 0.024);
+  }
+  10% {
+    opacity: calc(var(--o) * 0.095);
+  }
+  15% {
+    opacity: calc(var(--o) * 0.206);
+  }
+  20% {
+    opacity: calc(var(--o) * 0.345);
+  }
+  25% {
+    opacity: calc(var(--o) * 0.500);
+  }
+  30% {
+    opacity: calc(var(--o) * 0.655);
+  }
+  35% {
+    opacity: calc(var(--o) * 0.794);
+  }
+  40% {
+    opacity: calc(var(--o) * 0.905);
+  }
+  45% {
+    opacity: calc(var(--o) * 0.976);
+  }
+  50% {
+    opacity: calc(var(--o) * 1.000);
+  }
+  55% {
+    opacity: calc(var(--o) * 0.976);
+  }
+  60% {
+    opacity: calc(var(--o) * 0.905);
+  }
+  65% {
+    opacity: calc(var(--o) * 0.794);
+  }
+  70% {
+    opacity: calc(var(--o) * 0.655);
+  }
+  75% {
+    opacity: calc(var(--o) * 0.500);
+  }
+  80% {
+    opacity: calc(var(--o) * 0.345);
+  }
+  85% {
+    opacity: calc(var(--o) * 0.206);
+  }
+  90% {
+    opacity: calc(var(--o) * 0.095);
+  }
+  95% {
+    opacity: calc(var(--o) * 0.024);
+  }
+  100% {
+    opacity: calc(var(--o) * 0.000);
+  }
+}
+/* whole board shares one colour cycling through the spectrum */
+@keyframes led-spectrum {
+  0% {
+    background: #ff0000;
+    box-shadow: 0 0 12px 1px #ff0000;
+  }
+  17% {
+    background: #ffff00;
+    box-shadow: 0 0 12px 1px #ffff00;
+  }
+  33% {
+    background: #00ff00;
+    box-shadow: 0 0 12px 1px #00ff00;
+  }
+  50% {
+    background: #00ffff;
+    box-shadow: 0 0 12px 1px #00ffff;
+  }
+  67% {
+    background: #0000ff;
+    box-shadow: 0 0 12px 1px #0000ff;
+  }
+  83% {
+    background: #ff00ff;
+    box-shadow: 0 0 12px 1px #ff00ff;
+  }
+  100% {
+    background: #ff0000;
+    box-shadow: 0 0 12px 1px #ff0000;
+  }
+}
+/* lit for the first half of the cycle, dark for the second */
+@keyframes led-wipe {
+  0%,
+  47% {
+    opacity: var(--o);
+  }
+  50%,
+  97% {
+    opacity: 0;
+  }
+  100% {
+    opacity: var(--o);
+  }
+}
+@keyframes led-twinkle {
+  0%,
+  60%,
+  100% {
+    opacity: calc(var(--o) * 0.1);
+  }
+  75% {
+    opacity: var(--o);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

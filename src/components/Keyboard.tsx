@@ -15,11 +15,11 @@ export interface KeyboardProps {
 }
 
 /**
- * The 64-key (60%) board, drawn to scale. Click selects one key, Shift/Ctrl-click toggles,
- * dragging across keys adds them to the selection.
+ * The 64-key (60%) board, drawn to scale. Click toggles a key, dragging across keys
+ * adds (or removes) them in one sweep.
  */
 export function Keyboard({ selected, onSelect, overlay, capStyle, legend, dimmed }: KeyboardProps) {
-  const drag = useRef<{ on: boolean; set: Set<number> } | null>(null)
+  const drag = useRef<{ add: boolean; set: Set<number> } | null>(null)
 
   useEffect(() => {
     const up = () => (drag.current = null)
@@ -27,26 +27,24 @@ export function Keyboard({ selected, onSelect, overlay, capStyle, legend, dimmed
     return () => window.removeEventListener('pointerup', up)
   }, [])
 
-  const down = (i: number, e: React.PointerEvent) => {
+  // Click toggles a key in/out of the selection; dragging paints the same action
+  // (add or remove, decided by the first key) across every key it passes.
+  const down = (i: number) => {
     if (!onSelect || !selected) return
     const next = new Set(selected)
-    if (e.shiftKey || e.ctrlKey || e.metaKey) {
-      if (next.has(i)) next.delete(i)
-      else next.add(i)
-    } else if (next.size === 1 && next.has(i)) {
-      next.clear()
-    } else {
-      next.clear()
-      next.add(i)
-    }
-    drag.current = { on: true, set: next }
+    const add = !next.has(i)
+    if (add) next.add(i)
+    else next.delete(i)
+    drag.current = { add, set: next }
     onSelect(next)
   }
 
   const enter = (i: number) => {
     const d = drag.current
-    if (!d || !onSelect || d.set.has(i)) return
-    d.set = new Set(d.set).add(i)
+    if (!d || !onSelect || d.set.has(i) === d.add) return
+    d.set = new Set(d.set)
+    if (d.add) d.set.add(i)
+    else d.set.delete(i)
     onSelect(d.set)
   }
 
@@ -61,16 +59,20 @@ export function Keyboard({ selected, onSelect, overlay, capStyle, legend, dimmed
             type="button"
             aria-pressed={sel}
             aria-label={k.label}
-            onPointerDown={(e) => down(i, e)}
+            onPointerDown={(e) => {
+              // touch pointers are implicitly captured by the pressed key; release so drag reaches other keys
+              ;(e.target as Element).releasePointerCapture?.(e.pointerId)
+              down(i)
+            }}
             onPointerEnter={() => enter(i)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
-                down(i, e as unknown as React.PointerEvent)
+                down(i)
                 drag.current = null
               }
             }}
-            className="absolute p-[0.35%]"
+            className={cx('absolute p-[0.35%]', sel && 'z-10')}
             style={{
               left: `${(k.x / LAYOUT_W) * 100}%`,
               top: `${(k.y / LAYOUT_H) * 100}%`,
@@ -80,8 +82,10 @@ export function Keyboard({ selected, onSelect, overlay, capStyle, legend, dimmed
           >
             <span
               className={cx(
-                'relative flex h-full w-full flex-col overflow-hidden rounded-[clamp(4px,0.55vw,9px)] border-b-[3px] transition-[background,border-color,transform,opacity] duration-100',
-                sel ? 'border-[#001a66] bg-klein' : 'border-[#0d1328] bg-cap hover:bg-[#223057]',
+                'relative flex h-full w-full flex-col overflow-hidden rounded-[clamp(4px,0.55vw,9px)] border-b-[3px] transition-[background,border-color,transform,opacity,box-shadow] duration-100',
+                sel
+                  ? '-translate-y-[2px] border-[#001a66] bg-klein shadow-[0_0_0_2px_#fff,0_0_0_4px_var(--color-klein-hi),0_0_16px_4px_rgb(74_116_255/0.6)]'
+                  : 'border-[#0d1328] bg-cap hover:bg-[#223057]',
                 dimmed?.(i) && !sel && 'opacity-35',
               )}
             >
@@ -96,6 +100,11 @@ export function Keyboard({ selected, onSelect, overlay, capStyle, legend, dimmed
                 {overlay?.(k, i)}
               </span>
             </span>
+            {sel && (
+              <span className="pointer-events-none absolute top-0 right-0 z-20 flex size-[clamp(12px,1.3vw,18px)] -translate-y-[2px] items-center justify-center rounded-full bg-white text-[clamp(8px,0.9vw,12px)] font-bold text-klein shadow">
+                ✓
+              </span>
+            )}
           </button>
         )
       })}

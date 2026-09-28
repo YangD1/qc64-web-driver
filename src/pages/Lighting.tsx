@@ -137,7 +137,6 @@ function PerKey({ selected, setSelected }: PageProps) {
   const { t } = useI18n()
   const { setKeyLights } = useStore()
   const [color, setColor] = useState('#ffb547')
-  const [mode, setMode] = useState(1)
   const idx = [...selected]
   const [r, g, b] = fromHex(color)
 
@@ -156,24 +155,11 @@ function PerKey({ selected, setSelected }: PageProps) {
       }
     >
       <p className="mb-5 text-sm text-dim">{selected.size ? t('sel.count', { n: selected.size }) : t('light.perkeyHint')}</p>
-      <div className="grid gap-5 md:grid-cols-2">
-        <Field label={t('light.effect')}>
-          <Segmented
-            value={mode}
-            onChange={setMode}
-            options={[
-              { value: 1, label: t('light.mode.normal') },
-              { value: 2, label: t('light.mode.breath') },
-              { value: 3, label: t('light.mode.gradient') },
-            ]}
-          />
-        </Field>
-        <Field label={t('light.color')}>
-          <ColorPicker value={color} onChange={setColor} />
-        </Field>
-      </div>
+      <Field label={t('light.color')}>
+        <ColorPicker value={color} onChange={setColor} />
+      </Field>
       <div className="mt-6 flex flex-wrap gap-2">
-        <Button variant="primary" disabled={!idx.length} onClick={() => void setKeyLights(idx, { active: true, mode, r, g, b })}>
+        <Button variant="primary" disabled={!idx.length} onClick={() => void setKeyLights(idx, { active: true, mode: 1, r, g, b })}>
           {t('light.apply')}
         </Button>
         <Button disabled={!idx.length} onClick={() => void setKeyLights(idx, { active: false, mode: 1, r: 0, g: 0, b: 0 })}>

@@ -1,7 +1,7 @@
 import { Usb } from 'lucide-react'
 import { useState } from 'react'
 import { Keyboard } from '../components/Keyboard'
-import { Button, GitHubLink, ProgressBar, Segmented } from '../components/ui'
+import { Button, GitHubLink, ProgressBar, Segmented, ThemeToggle } from '../components/ui'
 import { useI18n } from '../i18n'
 import { usbId, webHidSupported } from '../protocol/transport'
 import { useStore } from '../store'
@@ -37,12 +37,13 @@ export function Connect() {
               { value: 'en', label: 'EN' },
             ]}
           />
+          <ThemeToggle />
           <GitHubLink />
         </div>
       </div>
 
       <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-6 pb-16">
-        <h1 className="max-w-3xl bg-linear-to-br from-fg via-[#1d2a5c] to-klein-hi bg-clip-text text-[clamp(32px,5vw,58px)] leading-[1.05] font-extrabold tracking-[-0.03em] text-transparent">{t('connect.title')}</h1>
+        <h1 className="max-w-3xl bg-linear-to-br from-fg via-fg to-klein-hi bg-clip-text text-[clamp(32px,5vw,58px)] leading-[1.05] font-extrabold tracking-[-0.03em] text-transparent">{t('connect.title')}</h1>
         <p className="mt-5 max-w-2xl text-lg text-dim">{t('connect.lead')}</p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -73,7 +74,7 @@ export function Connect() {
           <Keyboard capStyle={(k) => ({ animation: `wave 3.2s ease-in-out ${k.x * 0.11 + k.y * 0.05}s infinite` })} />
         </div>
       </div>
-      <style>{`@keyframes wave { 0%,100% { background: #ffffff } 45% { background: #2f5bff } 55% { background: #8aa4ff } }`}</style>
+      <style>{`@keyframes wave { 0%,100% { background: var(--color-cap-top) } 45% { background: #2f5bff } 55% { background: #8aa4ff } }`}</style>
     </div>
   )
 }

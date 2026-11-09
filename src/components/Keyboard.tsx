@@ -85,13 +85,13 @@ export function Keyboard({ selected, onSelect, overlay, capStyle, legend, dimmed
                 className={cx(
                   'relative flex h-full w-full flex-col overflow-hidden rounded-[clamp(5px,0.6vw,10px)] border-b-[3px] transition-[background,border-color,transform,opacity,box-shadow] duration-150',
                   sel
-                    ? '-translate-y-[2px] border-klein bg-klein-hi shadow-[0_0_0_2px_#fff,0_0_0_4px_var(--color-klein-hi),0_8px_20px_rgb(47_91_255/0.45)]'
-                    : 'border-[#d3d9e6] bg-[#f3f5fa] shadow-[0_1px_2px_rgb(30_45_90/0.12),0_4px_10px_-4px_rgb(30_45_90/0.18)] hover:-translate-y-px',
+                    ? '-translate-y-[2px] border-klein bg-klein-hi shadow-[0_0_0_2px_var(--color-surface),0_0_0_4px_var(--color-klein-hi),0_8px_20px_rgb(47_91_255/0.45)]'
+                    : 'border-cap-edge bg-cap-base shadow-[0_1px_2px_rgb(30_45_90/0.12),0_4px_10px_-4px_rgb(30_45_90/0.18)] hover:-translate-y-px',
                   dimmed?.(i) && !sel && 'opacity-35',
                 )}
               >
                 <span
-                  className={cx('absolute inset-x-[clamp(2px,0.3vw,5px)] top-[6%] bottom-[12%] rounded-[clamp(3px,0.45vw,7px)]', sel ? 'bg-linear-to-b from-[#5a7dff] to-klein-hi' : 'bg-linear-to-b from-white to-[#f7f8fc]')}
+                  className={cx('absolute inset-x-[clamp(2px,0.3vw,5px)] top-[6%] bottom-[12%] rounded-[clamp(3px,0.45vw,7px)]', sel ? 'bg-linear-to-b from-[#5a7dff] to-klein-hi' : 'bg-linear-to-b from-cap-top to-cap-bottom')}
                   style={capStyle?.(k, i)}
                 />
                 <span className="relative flex h-full flex-col justify-between px-[clamp(4px,0.55vw,9px)] pt-[clamp(3px,0.4vw,7px)] pb-[clamp(5px,0.75vw,11px)] text-left">

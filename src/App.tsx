@@ -1,6 +1,6 @@
 import { Activity, Gauge, Keyboard as KeyboardIcon, Lightbulb, LogOut, RefreshCw, Settings as SettingsIcon, Terminal } from 'lucide-react'
 import { useEffect, useState, type ComponentType } from 'react'
-import { GitHubLink, ProgressBar, Segmented, cx } from './components/ui'
+import { GitHubLink, ProgressBar, Segmented, ThemeToggle, cx } from './components/ui'
 import { I18nProvider, useI18n, type TKey } from './i18n'
 import { Actuation } from './pages/Actuation'
 import { Calibration } from './pages/Calibration'
@@ -77,7 +77,7 @@ function Shell() {
             aria-current={page === id ? 'page' : undefined}
             className={cx(
               'flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-all',
-              page === id ? 'bg-white/85 text-fg shadow-[inset_0_1px_0_#fff,0_2px_10px_-2px_rgb(30_45_90/0.18)]' : 'text-dim hover:bg-white/40 hover:text-fg',
+              page === id ? 'bg-surface/85 text-fg shadow-[inset_0_1px_0_var(--color-sheen),0_2px_10px_-2px_rgb(30_45_90/0.18)]' : 'text-dim hover:bg-surface/40 hover:text-fg',
             )}
           >
             <Icon size={17} className={page === id ? 'text-klein-hi' : ''} />
@@ -123,12 +123,13 @@ function Shell() {
                 { value: 'en', label: 'EN' },
               ]}
             />
-            <button onClick={() => void reload()} title={t('shell.reload')} className="rounded-full p-2 text-dim hover:bg-white/70 hover:text-fg">
+            <button onClick={() => void reload()} title={t('shell.reload')} className="rounded-full p-2 text-dim hover:bg-surface/70 hover:text-fg">
               <RefreshCw size={16} />
             </button>
-            <button onClick={() => void disconnect()} title={t('shell.disconnect')} className="rounded-full p-2 text-dim hover:bg-white/70 hover:text-fg">
+            <button onClick={() => void disconnect()} title={t('shell.disconnect')} className="rounded-full p-2 text-dim hover:bg-surface/70 hover:text-fg">
               <LogOut size={16} />
             </button>
+            <ThemeToggle />
             <GitHubLink />
           </div>
         </header>

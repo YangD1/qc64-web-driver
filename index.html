@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
     <title>QC64 Web Driver</title>
+    <!-- set the theme before first paint; src/theme.ts keeps it updated -->
+    <script>
+      var p = localStorage.getItem('theme'), h = new Date().getHours()
+      document.documentElement.dataset.theme = p === 'dark' || (p !== 'light' && (h >= 19 || h < 7)) ? 'dark' : 'light'
+    </script>
   </head>
   <body>
     <div id="root"></div>

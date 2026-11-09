@@ -33,7 +33,7 @@ export function Console() {
       }
     >
       <p className="mb-4 text-sm text-dim">{t('con.lead')}</p>
-      <div ref={box} className="h-[55vh] overflow-auto rounded-2xl border border-white/70 bg-white/50 p-4 font-mono text-xs leading-relaxed">
+      <div ref={box} className="h-[55vh] overflow-auto rounded-2xl border border-surface/70 bg-surface/50 p-4 font-mono text-xs leading-relaxed">
         {traffic.map((l) => (
           <div key={l.id} className={cx('whitespace-pre', l.dir === 'out' ? 'text-klein-hi' : 'text-ok')}>
             {l.dir === 'out' ? '→ ' : '← '}
@@ -48,7 +48,7 @@ export function Console() {
           send()
         }}
       >
-        <input value={input} onChange={(e) => setInput(e.target.value)} spellCheck={false} className="flex-1 rounded-full border border-white/70 bg-white/60 px-4 py-2 font-mono text-sm" />
+        <input value={input} onChange={(e) => setInput(e.target.value)} spellCheck={false} className="flex-1 rounded-full border border-surface/70 bg-surface/60 px-4 py-2 font-mono text-sm" />
         <Button variant="primary" type="submit">
           {t('con.send')}
         </Button>

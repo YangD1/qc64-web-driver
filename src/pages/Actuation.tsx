@@ -33,11 +33,15 @@ export function Actuation({ selected, setSelected }: PageProps) {
         onSelect={setSelected}
         overlay={(_, i) => {
           const k = table[i]
-          const v = k.rt ? k.down : k.fixDown
+          const down = k.rt ? k.down : k.fixDown
+          const up = k.rt ? k.up : k.fixUp
           return (
-            <span className="flex items-center gap-1 font-mono text-[clamp(7px,0.8vw,11px)]">
-              <span className={cx('size-1.5 rounded-full', k.rt ? 'bg-amber' : 'bg-dim/60')} />
-              <span className={k.rt ? 'text-amber' : 'text-dim'}>{mm(v)}</span>
+            <span className="flex items-center gap-1 font-mono text-[clamp(7px,0.8vw,11px)] leading-none">
+              <span className={cx('size-1.5 shrink-0 rounded-full', k.rt ? 'bg-amber' : 'bg-dim/60')} />
+              <span className={cx('flex flex-col gap-px', k.rt ? 'text-amber' : 'text-dim')}>
+                <span>↓{mm(down)}</span>
+                <span>↑{mm(up)}</span>
+              </span>
             </span>
           )
         }}

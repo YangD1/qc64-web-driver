@@ -1,6 +1,6 @@
 import { Activity, Gauge, Keyboard as KeyboardIcon, Lightbulb, LogOut, RefreshCw, Settings as SettingsIcon, Terminal } from 'lucide-react'
 import { useEffect, useState, type ComponentType } from 'react'
-import { ProgressBar, Segmented, cx } from './components/ui'
+import { GitHubLink, ProgressBar, Segmented, cx } from './components/ui'
 import { I18nProvider, useI18n, type TKey } from './i18n'
 import { Actuation } from './pages/Actuation'
 import { Calibration } from './pages/Calibration'
@@ -129,6 +129,7 @@ function Shell() {
             <button onClick={() => void disconnect()} title={t('shell.disconnect')} className="rounded-lg p-2 text-dim hover:bg-raised hover:text-fg">
               <LogOut size={16} />
             </button>
+            <GitHubLink />
           </div>
         </header>
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 lg:px-8">

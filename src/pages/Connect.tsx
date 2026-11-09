@@ -1,7 +1,7 @@
 import { Usb } from 'lucide-react'
 import { useState } from 'react'
 import { Keyboard } from '../components/Keyboard'
-import { Button, ProgressBar, Segmented } from '../components/ui'
+import { Button, GitHubLink, ProgressBar, Segmented } from '../components/ui'
 import { useI18n } from '../i18n'
 import { usbId, webHidSupported } from '../protocol/transport'
 import { useStore } from '../store'
@@ -28,14 +28,17 @@ export function Connect() {
           </span>
           {t('appName')}
         </span>
-        <Segmented
-          value={lang}
-          onChange={setLang}
-          options={[
-            { value: 'zh', label: '中' },
-            { value: 'en', label: 'EN' },
-          ]}
-        />
+        <div className="flex items-center gap-1">
+          <Segmented
+            value={lang}
+            onChange={setLang}
+            options={[
+              { value: 'zh', label: '中' },
+              { value: 'en', label: 'EN' },
+            ]}
+          />
+          <GitHubLink />
+        </div>
       </div>
 
       <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-6 pb-16">

@@ -62,11 +62,11 @@ function Shell() {
   const Page: ComponentType<PageProps> = PAGES.find((p) => p.id === page)!.el
 
   return (
-    <div className="flex min-h-full flex-col lg:flex-row">
-      <nav className="flex shrink-0 flex-row gap-1 overflow-x-auto border-b border-line bg-panel px-3 py-3 lg:w-56 lg:flex-col lg:border-r lg:border-b-0 lg:px-4 lg:py-6">
+    <div className="flex min-h-full flex-col gap-3 p-3 lg:flex-row lg:gap-4 lg:p-4">
+      <nav className="glass flex shrink-0 flex-row gap-1 overflow-x-auto rounded-3xl px-3 py-3 lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)] lg:w-56 lg:flex-col lg:px-4 lg:py-6">
         <div className="mr-4 flex items-center gap-2.5 px-2 lg:mr-0 lg:mb-8">
-          <span className="grid size-8 place-items-center rounded-lg bg-klein">
-            <span className="size-3.5 rounded-sm bg-klein-hi" />
+          <span className="grid size-8 place-items-center rounded-xl bg-linear-to-br from-klein-hi to-klein shadow-[inset_0_1px_0_rgb(255_255_255/0.4),0_4px_12px_-2px_rgb(47_91_255/0.5)]">
+            <span className="size-3.5 rounded-[5px] bg-white/85" />
           </span>
           <span className="text-[15px] font-bold tracking-tight whitespace-nowrap">{t('appName')}</span>
         </div>
@@ -76,8 +76,8 @@ function Shell() {
             onClick={() => setPage(id)}
             aria-current={page === id ? 'page' : undefined}
             className={cx(
-              'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors',
-              page === id ? 'bg-raised text-fg' : 'text-dim hover:text-fg',
+              'flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-all',
+              page === id ? 'bg-white/85 text-fg shadow-[inset_0_1px_0_#fff,0_2px_10px_-2px_rgb(30_45_90/0.18)]' : 'text-dim hover:bg-white/40 hover:text-fg',
             )}
           >
             <Icon size={17} className={page === id ? 'text-klein-hi' : ''} />
@@ -86,8 +86,8 @@ function Shell() {
         ))}
       </nav>
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex flex-wrap items-center gap-x-6 gap-y-3 border-b border-line px-6 py-3">
+      <div className="flex min-w-0 flex-1 flex-col gap-3 lg:gap-4">
+        <header className="glass sticky top-3 z-30 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-3xl px-5 py-2.5 lg:top-4">
           <div className="flex items-center gap-2.5">
             <span className={cx('size-2 rounded-full', demo ? 'bg-amber' : 'bg-ok')} />
             <span className="text-sm font-semibold">{kb?.name}</span>
@@ -123,16 +123,16 @@ function Shell() {
                 { value: 'en', label: 'EN' },
               ]}
             />
-            <button onClick={() => void reload()} title={t('shell.reload')} className="rounded-lg p-2 text-dim hover:bg-raised hover:text-fg">
+            <button onClick={() => void reload()} title={t('shell.reload')} className="rounded-full p-2 text-dim hover:bg-white/70 hover:text-fg">
               <RefreshCw size={16} />
             </button>
-            <button onClick={() => void disconnect()} title={t('shell.disconnect')} className="rounded-lg p-2 text-dim hover:bg-raised hover:text-fg">
+            <button onClick={() => void disconnect()} title={t('shell.disconnect')} className="rounded-full p-2 text-dim hover:bg-white/70 hover:text-fg">
               <LogOut size={16} />
             </button>
             <GitHubLink />
           </div>
         </header>
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 lg:px-8">
+        <main className="mx-auto w-full max-w-6xl flex-1 px-1 py-2 lg:px-4">
           <Page selected={selected} setSelected={setSelected} />
         </main>
       </div>
@@ -149,8 +149,8 @@ function Toasts() {
         <div
           key={x.id}
           className={cx(
-            'rounded-lg border bg-panel px-4 py-2.5 text-sm font-medium shadow-lg shadow-black/40',
-            x.kind === 'ok' ? 'border-ok/30 text-ok' : 'border-danger/40 text-danger',
+            'glass rounded-2xl px-4 py-2.5 text-sm font-medium',
+            x.kind === 'ok' ? 'text-ok' : 'text-danger',
           )}
         >
           {x.kind === 'ok' ? (x.text === 'ok' ? t('toast.saved') : x.text) : t('toast.error', { msg: x.text })}

@@ -138,8 +138,8 @@ function Editor({ idx, initial, onApply }: { idx: number[]; initial?: KeyAction;
             key={k}
             onClick={() => setKind(k)}
             className={cx(
-              'rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors',
-              kind === k ? 'border-klein-hi bg-klein/30 text-fg' : 'border-line text-dim hover:text-fg',
+              'rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all',
+              kind === k ? 'border-klein-hi/50 bg-white/85 text-klein-hi shadow-[0_2px_8px_-2px_rgb(47_91_255/0.35)]' : 'border-white/70 bg-white/40 text-dim hover:bg-white/70 hover:text-fg',
             )}
           >
             {t(`keys.kind.${k}` as TKey)}
@@ -153,12 +153,12 @@ function Editor({ idx, initial, onApply }: { idx: number[]; initial?: KeyAction;
             {kind === 'dks' && <p className="text-sm text-dim">{t('keys.dksHint')}</p>}
             <p className="text-sm font-medium">
               {t('keys.pickTarget')}
-              {des && <span className="ml-2 rounded bg-klein px-2 py-0.5 font-mono text-xs">{desLabel(...des)}</span>}
+              {des && <span className="ml-2 rounded-full bg-klein-hi px-2.5 py-0.5 font-mono text-xs text-white">{desLabel(...des)}</span>}
             </p>
             <DesPicker value={des} onChange={setDes} />
             {kind === 'dks' && (
               <Field label={t('keys.interval')}>
-                <input type="number" min={1} max={1000} value={interval} onChange={(e) => setIntervalMs(Number(e.target.value))} className="w-28 rounded-lg border border-line bg-ink px-3 py-1.5 font-mono text-sm" />
+                <input type="number" min={1} max={1000} value={interval} onChange={(e) => setIntervalMs(Number(e.target.value))} className="w-28 rounded-lg border border-white/70 bg-white/60 px-3 py-1.5 font-mono text-sm" />
               </Field>
             )}
           </div>
@@ -169,7 +169,7 @@ function Editor({ idx, initial, onApply }: { idx: number[]; initial?: KeyAction;
               <button
                 key={m.id}
                 onClick={() => setMedia(m.id)}
-                className={cx('rounded-lg border px-3 py-2 text-left text-sm', media === m.id ? 'border-klein-hi bg-klein/30' : 'border-line text-dim hover:text-fg')}
+                className={cx('rounded-xl border px-3 py-2 text-left text-sm transition-all', media === m.id ? 'border-klein-hi/50 bg-white/85 text-klein-hi shadow-[0_2px_8px_-2px_rgb(47_91_255/0.35)]' : 'border-white/70 bg-white/40 text-dim hover:bg-white/70 hover:text-fg')}
               >
                 {t(`media.${m.id}` as TKey)}
               </button>
@@ -184,7 +184,7 @@ function Editor({ idx, initial, onApply }: { idx: number[]; initial?: KeyAction;
                   <button
                     key={b.id}
                     onClick={() => setMouse({ ...mouse, button: mouse.button ^ b.bit })}
-                    className={cx('rounded-lg border px-3 py-1.5 text-sm', mouse.button & b.bit ? 'border-klein-hi bg-klein/30' : 'border-line text-dim')}
+                    className={cx('rounded-lg border px-3 py-1.5 text-sm', mouse.button & b.bit ? 'border-klein-hi/50 bg-white/85 text-klein-hi shadow-[0_2px_8px_-2px_rgb(47_91_255/0.35)]' : 'border-white/70 bg-white/40 text-dim')}
                   >
                     {t(`mouse.${b.id}` as TKey)}
                   </button>
@@ -196,13 +196,13 @@ function Editor({ idx, initial, onApply }: { idx: number[]; initial?: KeyAction;
                 {(['x', 'y'] as const).map((ax) => (
                   <label key={ax} className="flex items-center gap-1.5">
                     {ax.toUpperCase()}
-                    <input type="number" min={-127} max={127} value={mouse[ax]} onChange={(e) => setMouse({ ...mouse, [ax]: Number(e.target.value) })} className="w-20 rounded-lg border border-line bg-ink px-2 py-1.5" />
+                    <input type="number" min={-127} max={127} value={mouse[ax]} onChange={(e) => setMouse({ ...mouse, [ax]: Number(e.target.value) })} className="w-20 rounded-lg border border-white/70 bg-white/60 px-2 py-1.5" />
                   </label>
                 ))}
               </div>
             </Field>
             <Field label={t('keys.mouseWheel')}>
-              <input type="number" min={-127} max={127} value={mouse.wheel} onChange={(e) => setMouse({ ...mouse, wheel: Number(e.target.value) })} className="w-24 rounded-lg border border-line bg-ink px-2 py-1.5 font-mono text-sm" />
+              <input type="number" min={-127} max={127} value={mouse.wheel} onChange={(e) => setMouse({ ...mouse, wheel: Number(e.target.value) })} className="w-24 rounded-lg border border-white/70 bg-white/60 px-2 py-1.5 font-mono text-sm" />
             </Field>
           </div>
         )}
@@ -239,7 +239,7 @@ function DesPicker({ value, onChange }: { value: [number, number] | null; onChan
             onClick={() => onChange([r, c])}
             className={cx(
               'min-w-10 rounded-md border px-2.5 py-1.5 font-mono text-sm transition-colors',
-              value?.[0] === r && value?.[1] === c ? 'border-klein-hi bg-klein text-white' : 'border-line bg-cap hover:border-klein-hi/50',
+              value?.[0] === r && value?.[1] === c ? 'border-klein-hi bg-klein-hi text-white shadow-[0_4px_12px_-2px_rgb(47_91_255/0.5)]' : 'border-white/80 bg-white/70 hover:bg-white',
             )}
           >
             {desLabel(r, c)}

@@ -23,8 +23,8 @@ export function Connect() {
     <div className="relative flex min-h-full flex-col overflow-hidden">
       <div className="flex items-center justify-between px-6 py-5">
         <span className="flex items-center gap-2.5 text-[15px] font-bold tracking-tight">
-          <span className="grid size-8 place-items-center rounded-lg bg-klein">
-            <span className="size-3.5 rounded-sm bg-klein-hi" />
+          <span className="grid size-8 place-items-center rounded-xl bg-linear-to-br from-klein-hi to-klein shadow-[inset_0_1px_0_rgb(255_255_255/0.4),0_4px_12px_-2px_rgb(47_91_255/0.5)]">
+            <span className="size-3.5 rounded-[5px] bg-white/85" />
           </span>
           {t('appName')}
         </span>
@@ -42,7 +42,7 @@ export function Connect() {
       </div>
 
       <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-6 pb-16">
-        <h1 className="max-w-3xl text-[clamp(32px,5vw,58px)] leading-[1.05] font-extrabold tracking-[-0.03em]">{t('connect.title')}</h1>
+        <h1 className="max-w-3xl bg-linear-to-br from-fg via-[#1d2a5c] to-klein-hi bg-clip-text text-[clamp(32px,5vw,58px)] leading-[1.05] font-extrabold tracking-[-0.03em] text-transparent">{t('connect.title')}</h1>
         <p className="mt-5 max-w-2xl text-lg text-dim">{t('connect.lead')}</p>
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -73,7 +73,7 @@ export function Connect() {
           <Keyboard capStyle={(k) => ({ animation: `wave 3.2s ease-in-out ${k.x * 0.11 + k.y * 0.05}s infinite` })} />
         </div>
       </div>
-      <style>{`@keyframes wave { 0%,100% { background: #212b4b } 45% { background: #002fa7 } 55% { background: #4a74ff } }`}</style>
+      <style>{`@keyframes wave { 0%,100% { background: #ffffff } 45% { background: #2f5bff } 55% { background: #8aa4ff } }`}</style>
     </div>
   )
 }

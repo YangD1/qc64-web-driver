@@ -63,7 +63,7 @@ export function Calibration() {
           if (phase === 'idle') {
             const c = state!.cal[keyIndex(k.row, k.col)]
             const f = Math.max(0, Math.min(1, (c.rest - c.min) / SCALE))
-            return { background: `linear-gradient(to bottom, #2a3558 ${f * 100}%, transparent ${f * 100}%)` }
+            return { background: `linear-gradient(to bottom, rgb(47 91 255 / 0.2) ${f * 100}%, transparent ${f * 100}%)` }
           }
           const v = live.get(k.phy)
           if (!v) return undefined

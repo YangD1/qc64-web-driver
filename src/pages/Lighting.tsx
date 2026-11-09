@@ -67,8 +67,8 @@ function EffectEditor({ kind, modes, lang }: { kind: 'mb' | 'mc'; modes: EffectM
               key={m}
               onClick={() => set({ ...(cur.effects[m] ?? blank(m)), mode: m })}
               className={
-                'rounded-lg border px-3 py-2.5 text-left text-sm font-medium transition-colors ' +
-                (m === cur.mode ? 'border-klein-hi bg-klein/30 text-fg' : 'border-line text-dim hover:border-klein-hi/50 hover:text-fg')
+                'rounded-xl border px-3 py-2.5 text-left text-sm font-medium transition-all ' +
+                (m === cur.mode ? 'border-klein-hi/50 bg-white/85 text-klein-hi shadow-[0_2px_8px_-2px_rgb(47_91_255/0.35)]' : 'border-white/70 bg-white/40 text-dim hover:bg-white/70 hover:text-fg')
               }
             >
               {lang === 'zh' ? zh : en}
